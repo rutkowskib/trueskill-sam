@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:11.1
+    container_name: postgres-serverless-ranks
+    environment:
+      - POSTGRES_DB=serverless-ranks
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=nodeuser
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - ranks-sam
+
+  pgadmin:
+    image: dpage/pgadmin4
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pwdpwd
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+
+volumes:
+  postgres_data:
+  pgadmin:
+
+networks:
+  ranks-sam:

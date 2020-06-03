@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  SAM ranks
+
+Globals:
+  Function:
+    Timeout: 3
+  Api:
+    Cors:
+      AllowMethods: "'*'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
+
+Resources:
+  ListCompetitions:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/list-competitions
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        ListCompetitions:
+          Type: Api
+          Properties:
+            Path: /competitions
+            Method: get
+
+  CreateCompetitions:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/create-competitions
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        CreateCompetitions:
+          Type: Api
+          Properties:
+            Path: /competitions
+            Method: post
+
+  GetGame:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/get-game
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        GetGame:
+          Type: Api
+          Properties:
+            Path: /competitions/{name}/game
+            Method: get
+
+  GetCompetition:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/get-competition
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        GetCompetitions:
+          Type: Api
+          Properties:
+            Path: /competitions/{name}
+            Method: get
+
+  CreateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/create-users
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        CreateCompetitions:
+          Type: Api
+          Properties:
+            Path: /competitions/users
+            Method: post
+
