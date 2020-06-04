@@ -53,6 +53,19 @@ Resources:
             Path: /competitions/{name}/game
             Method: get
 
+  RateGame:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/rate-game
+      Handler: index.handler
+      Runtime: nodejs12.x
+      Events:
+        RateGame:
+          Type: Api
+          Properties:
+            Path: /competitions/{name}/game
+            Method: post
+
   GetCompetition:
     Type: AWS::Serverless::Function
     Properties:

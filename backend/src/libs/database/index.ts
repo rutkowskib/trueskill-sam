@@ -9,11 +9,11 @@ export class Database {
     private connectionManager: ConnectionManager;
     private static connectionOptions: ConnectionOptions = {
         type: 'postgres',
-        host: 'postgres',
+        host: 'terraform-20200603083614617700000001.cabniyxy5ruo.eu-west-1.rds.amazonaws.com',
         port: 5432,
-        username: 'nodeuser',
-        password: 'password',
-        database: 'serverless-ranks',
+        username: 'root',
+        password: 'Vdu1mucx%xAiF0Rq',
+        database: 'sam_ranks',
         entities: [
             Competition,
             User,

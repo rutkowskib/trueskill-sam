@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { COMPETITIONS_ACTION_TYPES } from '../actionTypes/competitions';
 import { URLS } from '../urls';
 import { passValueToUrl } from '../util';
-import { IPlayer } from '../reducers/competitions/models';
+import { INewPlayer, IPlayer } from '../reducers/competitions/models';
 import qs from 'qs';
 
 export const fetchCompetitions = () => async (dispatch: Dispatch<any>): Promise<void> => {
@@ -66,13 +66,46 @@ export const getGame = (competition: string, players: string[]) => async (dispat
     try {
         const url = `competitions/${competition}/game?${qs.stringify({ players }, { arrayFormat: 'repeat' })}`;
         const response = await axios.get(url);
-        console.log(response);
         dispatch({
             type: COMPETITIONS_ACTION_TYPES.GET_GAME.FULFILLED,
+            game: response.data,
         });
     } catch (error) {
         dispatch({
             type: COMPETITIONS_ACTION_TYPES.GET_GAME.REJECTED,
+        });
+    }
+};
+
+export const rateGame = (competition: string, teams: string[][]) => async (dispatch: Dispatch<any>): Promise<void> => {
+    dispatch({
+        type: COMPETITIONS_ACTION_TYPES.RATE_GAME.PENDING,
+    });
+    try {
+        const url = `competitions/${competition}/game`;
+        await axios.post(url, { teams });
+        dispatch({
+            type: COMPETITIONS_ACTION_TYPES.RATE_GAME.FULFILLED,
+        });
+    } catch (error) {
+        dispatch({
+            type: COMPETITIONS_ACTION_TYPES.RATE_GAME.REJECTED,
+        });
+    }
+};
+
+export const createUser = (user: INewPlayer) => async (dispatch: Dispatch<any>): Promise<void> => {
+    dispatch({
+        type: COMPETITIONS_ACTION_TYPES.CREATE_USER.PENDING,
+    });
+    try {
+        await axios.post(URLS.CREATE_USER, user);
+        dispatch({
+            type: COMPETITIONS_ACTION_TYPES.CREATE_USER.FULFILLED,
+        });
+    } catch (error) {
+        dispatch({
+            type: COMPETITIONS_ACTION_TYPES.CREATE_USER.REJECTED,
         });
     }
 };

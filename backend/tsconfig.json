@@ -7,7 +7,10 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2019"
+    ]
   },
   "include": [
     "module.d.ts",

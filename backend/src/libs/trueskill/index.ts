@@ -1,7 +1,7 @@
 import { User } from '../database/entities/user.entity';
 import 'lodash.combinations';
 import _ from 'lodash';
-import { quality as trueskillQuality, Rating } from 'ts-trueskill';
+import { quality as trueskillQuality, rate, Rating } from 'ts-trueskill';
 
 export const generateTeams = (players: User[]): { teams: Array<User[]> } => {
     const team1Combinations = _.combinations(players, players.length / 2);
@@ -22,8 +22,23 @@ export const generateTeams = (players: User[]): { teams: Array<User[]> } => {
     };
 };
 
+export const createNewRankings = (teams: Array<User[]>): User[] => {
+    let [ team1, team2 ] = teams;
+    const trueskillTeam1 = convertToTrueskillTeam(team1);
+    const trueskillTeam2 = convertToTrueskillTeam(team2);
+
+    const [rated1, rated2] = rate([trueskillTeam1, trueskillTeam2]);
+
+
+    return updateTeam(team1, rated1).concat(updateTeam(team2, rated2));
+};
+
 const convertToTrueskillTeam = (team: User[]): Rating[] => {
     return team.map((player: User) => new Rating(player.mu, player.sigma));
 };
+
+const updateTeam = (team: User[], ratings: Rating[]) => team.map((player: User, index: number) => updatePlayerRanking(player, ratings[index]));
+
+const updatePlayerRanking = (player: User, rating: Rating): User => ({...player, mu: rating.mu, sigma: rating.sigma });
 
 const comparePlayers = (player1: User, player2: User): boolean => player1.name === player2.name;

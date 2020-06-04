@@ -16,7 +16,7 @@ export const CreateCompetition = () => {
         <form onSubmit={onSubmit}>
             <TextField required id="standard-required" label="Name" value={name} onChange={onChange} />
             <Button variant="contained" color="primary" type="submit">
-                Primary
+                Add competition
             </Button>
         </form>
     );

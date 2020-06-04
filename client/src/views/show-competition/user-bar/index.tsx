@@ -11,6 +11,7 @@ export const UserBar = (props: IUserBar) => {
     const onChange = (event: any) => {
         props.setCheckbox(event.target.checked);
     };
+    const rating = (props.player.mu - 3 * props.player.sigma).toFixed(3);
     return (
         <div>
             <input
@@ -18,7 +19,7 @@ export const UserBar = (props: IUserBar) => {
                 checked={props.isSelected}
                 onChange={onChange}
             />
-            {props.player.name}
+            {props.player.name} {rating} {props.player.mu} {props.player.sigma}
         </div>
     );
 };

@@ -4,6 +4,7 @@ import { fetchCompetitions } from '../../actions/competitions';
 import { IStore } from '../../reducers';
 import { ICompetition } from '../../reducers/competitions/models';
 import { Competition } from './competition';
+import { CenteredGrid } from '../../components/centered-grid';
 
 interface IDispatch {
     fetchCompetitions: () => Promise<void>
@@ -23,9 +24,9 @@ class _CompetitionsView extends React.Component<IDispatch & IMapState> {
             <Competition name={competition.name} key={competition.name} />
         ));
         return (
-            <div>
+            <CenteredGrid>
                 {competitions}
-            </div>
+            </CenteredGrid>
         )
     }
 }

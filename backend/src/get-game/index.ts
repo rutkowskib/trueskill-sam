@@ -18,7 +18,9 @@ export const handler = async (event: APIGatewayEvent) => {
             },
         });
         const { teams } = generateTeams(playersEntities);
-        return buildResponse(200, teams);
+        return buildResponse(200, {
+            teams
+        });
     } catch (err) {
         console.log(err);
         return err;

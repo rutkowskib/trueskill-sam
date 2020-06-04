@@ -17,4 +17,5 @@ resource "aws_db_instance" "rds" {
   publicly_accessible = true
   skip_final_snapshot = true // DO NOT USE ON PROD!!!!
   vpc_security_group_ids = [ aws_security_group.rds_sg.id ]
+
 }

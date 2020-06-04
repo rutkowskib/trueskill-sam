@@ -3,7 +3,7 @@ import { reducer as competitions } from './competitions';
 import { ICompetitionsReducer } from './competitions/models';
 
 export interface IStore {
-    competitions: ICompetitionsReducer
+    competitions: ICompetitionsReducer;
 }
 
 export const createReducers = () => combineReducers({
