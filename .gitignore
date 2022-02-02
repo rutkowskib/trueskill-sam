@@ -335,3 +335,5 @@ fabric.properties
 **/*.tfvars
 **/*.tfstate*
 **/.terraform/*
+
+.idea/*
