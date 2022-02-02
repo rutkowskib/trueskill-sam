@@ -11,9 +11,30 @@ Globals:
       AllowMethods: "'*'"
       AllowHeaders: "'*'"
       AllowOrigin: "'*'"
-
+    Auth:
+      Authorizers:
+        MyLambdaTokenAuthorizer:
+          FunctionArn: !GetAtt MyAuthFunction.Arn
+    GatewayResponses:
+      DEFAULT_4xx:
+        ResponseParameters:
+          Headers:
+            Access-Control-Expose-Headers: "'*'"
+            Access-Control-Allow-Origin: "'*'"
+      DEFAULT_5xx:
+        ResponseParameters:
+          Headers:
+            Access-Control-Expose-Headers: "'*'"
+            Access-Control-Allow-Origin: "'*'"
 
 Resources:
+  MyAuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/libs/auth
+      Handler: authorizer.handler
+      Runtime: nodejs12.x
+
   ListCompetitions:
     Type: AWS::Serverless::Function
     Properties:
@@ -79,16 +100,19 @@ Resources:
             Path: /competitions/{name}
             Method: get
 
-  CreateUser:
+  ApiAuth:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/create-users
+      CodeUri: src/api-auth
       Handler: index.handler
       Runtime: nodejs12.x
       Events:
-        CreateCompetitions:
+        ApiAuth:
           Type: Api
           Properties:
-            Path: /competitions/users
-            Method: post
+            Path: /api/auth
+            Method: get
+            Auth:
+              Authorizer: MyLambdaTokenAuthorizer
+
 

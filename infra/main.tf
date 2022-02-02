@@ -20,3 +20,7 @@ module "website_bucket" {
   source = "./s3-website"
   bucket_name = "sam-ranks"
 }
+
+module "cognito" {
+  source = "./cognito"
+}

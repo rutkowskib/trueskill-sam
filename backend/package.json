@@ -29,10 +29,14 @@
   "dependencies": {
     "aws-sdk": "^2.686.0",
     "dotenv": "^8.2.0",
+    "jwk-to-pem": "^2.0.3",
+    "jws": "^4.0.0",
     "lodash": "^4.17.15",
     "lodash.combinations": "^18.9.19",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
     "ts-trueskill": "^3.0.1",
     "typeorm": "^0.2.25"
   }
