@@ -23,4 +23,6 @@ module "website_bucket" {
 
 module "cognito" {
   source = "./cognito"
+  facebook_app_id = var.facebook_app_id
+  facebook_secret = var.facebook_secret
 }

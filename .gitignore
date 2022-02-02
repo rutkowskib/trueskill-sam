@@ -337,3 +337,5 @@ fabric.properties
 **/.terraform/*
 
 .idea/*
+
+**/.terraform*

@@ -33,8 +33,8 @@ resource "aws_cognito_identity_provider" "facebook_provider" {
 
   provider_details = {
     authorize_scopes = "public_profile, email"
-    client_id        = "252684432830062"
-    client_secret    = "3c20480eb13e66ff57e726b93f86a360"
+    client_id        = var.facebook_app_id
+    client_secret    = var.facebook_secret
   }
 
   attribute_mapping = {
